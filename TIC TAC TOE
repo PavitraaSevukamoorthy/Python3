@@ -1,0 +1,110 @@
+board = [[1, 2, 3],[4, "X", 6],[7, 8, 9]]
+entered_move = [5]
+
+# The function accepts one parameter containing the board's current status
+# and prints it out to the console.
+
+def display_board(board):
+    for i in range(3):
+        if i<2:
+            print("""+-------+-------+-------+
+|       |       |       |
+|  """,board[i][0],"""  |  """,board[i][1],"""  |  """,board[i][2],"""  |
+|       |       |       |""")
+        if i == 2:
+            print("""+-------+-------+-------+
+|       |       |       |
+|  """,board[i][0],"""  |  """,board[i][1],"""  |  """,board[i][2],"""  |
+|       |       |       |
++-------+-------+-------+""")
+
+
+# The function accepts the board current status, asks the user about their move, 
+# checks the input and updates the board according to the user's decision.
+
+def enter_move(board_entry, entered_move):
+    if board_entry > 0 and board_entry < 10 and board_entry not in entered_move :
+        for row in range(3):
+            for column in range(3):
+                if board_entry == board[row][column]:
+                    board[row][column] = 0
+                    display_board(board)
+                    entered_move.append(board_entry)
+
+    else :
+        print ("Invalid move...re-enter")
+        return False
+
+    
+    while 1 :
+        from random import randrange
+        num = (randrange(10))
+        if num not in entered_move and num != 0:
+            for row in range(3):
+                for column in range(3):
+                    if num == board[row][column]:
+                        board[row][column] = "X"
+                        display_board(board)
+                        entered_move.append(num)
+                        print(entered_move)
+                        return True
+        
+        else:
+            continue
+        
+        
+
+# The function analyzes the board status in order to check if 
+# the player using 'O's or 'X's has won the game
+
+def victory_for(board):
+    if board[0][0] == 0 and  board[0][1] == 0 and  board[0][2] == 0 :
+        print("U won!!!")
+    elif board[1][0] == 0 and  board[1][1] == 0 and  board[1][2] == 0 :
+        print("U won!!!")       
+    elif board[2][0] == 0 and  board[2][1] == 0 and  board[2][2] == 0 :
+        print("U won!!!")    
+    elif board[0][0] == 0 and  board[1][0] == 0 and  board[2][0] == 0 :
+        print("U won!!!")    
+    elif board[0][1] == 0 and  board[1][1] == 0 and  board[2][1] == 0 :
+        print("U won!!!")  
+    elif board[0][2] == 0 and  board[1][2] == 0 and  board[2][2] == 0 :
+        print("U won!!!")             
+    elif board[0][0] == 0 and  board[1][1] == 0 and  board[2][2] == 0 :
+        print("U won!!!")             
+    elif board[0][2] == 0 and  board[1][1] == 0 and  board[2][0] == 0 :
+        print("U won!!!")             
+    
+    if board[0][0] == "X" and board[0][1] == "X" and board[0][2] == "X" :
+        print("I won!!!")
+    elif board[1][0] == "X" and board[1][1] == "X" and board[1][2] == "X" :
+        print("I won!!!")       
+    elif board[2][0] == "X" and board[2][1] == "X" and board[2][2] == "X" :
+        print("I won!!!")    
+    elif board[0][0] == "X" and board[1][0] == "X" and board[2][0] == "X" :
+        print("I won!!!")    
+    elif board[0][1] == "X" and board[1][1] == "X" and board[2][1] == "X" :
+        print("I won!!!")  
+    elif board[0][2] == "X" and board[1][2] == "X" and board[2][2] == "X" :
+        print("I won!!!")             
+    elif board[0][0] == "X" and board[1][1] == "X" and board[2][2] == "X" :
+        print("I won!!!")             
+    elif board[0][2] == "X" and board[1][1] == "X" and board[2][0] == "X" :
+        print("I won!!!")   
+           
+    else : 
+        print("MATCH DRAW")
+        
+    
+
+
+display_board(board)
+while (7):
+    board_entry = int(input("Enter your move... "))
+    ok = enter_move(board_entry, entered_move)
+    if ok : 
+        enter_move(board_entry, entered_move)
+        victory_for(board)
+
+    if not ok : continue
+victory_for(board)
