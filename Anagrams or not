@@ -1,0 +1,16 @@
+text_1 = input("enter text_1.. ")
+text_2 = input("enter text_2.. ")
+text_1 = text_1.replace(" ","")
+text_2 = text_2.replace(" ","")
+text_1 = text_1.lower()
+text_2 = text_2.lower()
+for i in text_1:
+    if i in text_2:
+        a = text_2.index(i)
+        text_2 = text_2.replace(text_2[a]," ")
+        text_1 = text_1.replace(i," ")
+        continue
+if text_1.isspace() and text_2.isspace():
+    print("anagrams")
+else :
+    print ("not anagrams")
