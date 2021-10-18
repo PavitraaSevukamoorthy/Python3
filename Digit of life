@@ -1,0 +1,14 @@
+birthday = input('Enter your b_day without spaces in YYYYMMDD format.. ')
+while len(birthday) != 8 and birthday.isdigit() :
+    birthday = input('Re-enter your b_day without spaces in YYYYMMDD format..')
+    continue
+digit = 0
+for i in birthday:
+    digit = digit + int(i)
+    while digit > 9:
+        a = ''
+        a = str(digit)
+        digit = 0
+        for i in a:
+            digit = digit + int(i)
+print("Your Digit of Life is: ",digit)
