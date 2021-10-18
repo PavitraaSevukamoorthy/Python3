@@ -1,0 +1,26 @@
+import math
+
+
+class Point:
+    x_list = []
+    y_list = []
+
+    def __init__(self, x=0.0, y=0.0):
+        self.xp = float(x)
+        self.yp = float(y)
+        Point.x_list.append(self.xp)
+        Point.y_list.append(self.yp)
+
+    def distance_from_xy(self, x, y):
+        X = abs(self.xp - float(x))
+        Y = abs(self.yp - float(y))
+        dis = math.hypot(X, Y)
+        return dis
+        
+    def distance_from_point(self, point):
+        X = abs(Point.x_list[0] - Point.x_list[1])
+        Y = abs(Point.y_list[0] - Point.y_list[1])
+        dis = math.hypot(X, Y)
+        return dis
+
+
