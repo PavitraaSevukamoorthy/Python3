@@ -1,0 +1,53 @@
+class Timer:
+    def __init__( self, hours = 0, minutes = 0, seconds = 0 ):
+        self.__hours = str(hours)
+        self.__minutes = str(minutes)
+        self.__seconds = str(seconds)
+
+    def __str__(self):
+        if len(self.__hours) != 2:
+            self.__hours = '0'+ self.__hours
+        if len(self.__minutes) != 2:
+            self.__minutes = '0'+ self.__minutes
+        if len(self.__seconds) != 2:
+            self.__seconds = '0' + self.__seconds
+        return self.__hours+":"+self.__minutes+":"+self.__seconds
+
+    def next_second(self):
+        if self.__seconds != '59':
+            self.__seconds = str(int(self.__seconds[0])*10 + int(self.__seconds[1]) + 1 )
+        if self.__seconds == '59':
+            self.__seconds = '00'
+            if self.__minutes != '59':
+                self.__minutes = str(int(self.__minutes[0])*10 + int(self.__minutes[1]) + 1 )
+            if self.__minutes == '59' :
+                self.__minutes = '00'
+                if self.__hours != '23':
+                    self.__hours = str(int(self.__hours[0])*10 + int(self.__hours[1]) + 1 )
+                if self.__hours == '23': 
+                    self.__hours = '00'
+            
+        
+
+    def prev_second(self):
+        if self.__seconds != '00':
+            self.__seconds = str(int(self.__seconds[0])*10 + int(self.__seconds[1]) - 1 )
+        if self.__seconds == '00':
+            self.__seconds = '59'
+            if self.__minutes != '00':
+                self.__minutes = str(int(self.__minutes[0])*10 + int(self.__minutes[1]) - 1 )
+            if self.__minutes == '00' :
+                self.__minutes = '59'
+                if self.__hours != '00':
+                    self.__hours = str(int(self.__hours[0])*10 + int(self.__hours[1]) - 1 )
+                if self.__hours == '00': 
+                    self.__hours = '23'
+            
+
+timer = Timer(23, 59, 59)
+print(timer)
+timer.next_second()
+print(timer)
+timer.prev_second()
+print(timer)
+
