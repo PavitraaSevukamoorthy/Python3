@@ -1,0 +1,63 @@
+def is_year_leap(year):
+	if year % 4 != 0:
+		return False
+	elif year % 100 != 0:
+		return True
+	elif year % 400 != 0:
+		return False
+	else:
+		return True
+
+
+def days_in_month(year,month):
+	if year < 1582 or month < 1 or month > 12:
+		return None
+
+	days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+	res  = days[month - 1]
+	if month == 2 and is_year_leap(year):
+		res = 29
+	return res
+
+
+def day_of_year(year, month, day):
+    if year < 1582 or month < 1 or month > 12 or day > 31:
+        return None
+ 		
+    elif is_year_leap(year):
+        days = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        if day <= days[month-1]:
+            No_of_days_in_a_month = days_in_month(year,month)
+            sum=0
+            for i in range(month-1):
+                sum += days[i]
+            total_days = sum + day 
+            return total_days
+        else : return None
+
+    elif not is_year_leap(year):
+        days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        if day <= days[month-1]:
+            No_of_days_in_a_month = days_in_month(year,month)
+            sum=0
+            for i in range(month-1):
+                sum += days[i]
+            total_days = sum + day 
+            return total_days    
+        else : return None
+
+print(day_of_year(2000, 12, 31))
+print(day_of_year(2020, 1, 1))
+print(day_of_year(2004, 12, 31))
+print(day_of_year(1945, 8, 14))
+print(day_of_year(1998, 5, 16))
+print(day_of_year(2017, 5, 32))
+
+CONSOLE
+
+366
+1
+366
+226
+136
+None
