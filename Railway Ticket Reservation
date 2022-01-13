@@ -1,0 +1,225 @@
+class IRCTC:
+    customer_id = 0
+    LBerths = ['0' for i in range(1)]
+    MBerths = ['0' for i in range(1)]
+    UBerths = ['0' for i in range(1)]
+    WList = ['0' for i in range(1)]
+    RACList = ['0' for i in range(1)]
+    BookingList = {}
+        
+    def LBook(self):
+        for i in range(len(IRCTC.LBerths)):
+            if IRCTC.LBerths[i] == '0':
+                IRCTC.LBerths[i] = str(i+1)+'L'
+                print('Customer ID: ',IRCTC.customer_id)
+                print(IRCTC.LBerths[i],'Berth is given')
+                IRCTC.BookingList[IRCTC.customer_id] = IRCTC.LBerths[i]
+                return True
+            else: 
+                continue
+        return False
+
+    def MBook(self):
+        for i in range(len(IRCTC.MBerths)):
+            if IRCTC.MBerths[i] == '0':
+                IRCTC.MBerths[i] = str(i+1)+'M'
+                print('Customer ID: ',IRCTC.customer_id)
+                print(IRCTC.MBerths[i],'Berth is given')
+                IRCTC.BookingList[IRCTC.customer_id] = IRCTC.MBerths[i]
+                return True
+            else:
+                continue
+        return False
+
+    def UBook(self):
+        for i in range(len(IRCTC.UBerths)):
+            if IRCTC.UBerths[i] == '0':
+                IRCTC.UBerths[i] = str(i+1)+'U'
+                print('Customer ID: ',IRCTC.customer_id)
+                print(IRCTC.UBerths[i],'Berth is given')
+                IRCTC.BookingList[IRCTC.customer_id] = IRCTC.UBerths[i]
+                return True
+            else:
+                continue
+        return False
+
+    def RAC(self):
+        for i in range(len(IRCTC.RACList)):
+            if IRCTC.RACList[i] == '0':
+                IRCTC.RACList[i] = str(i+1)+'RAC'
+                print('Customer ID: ',IRCTC.customer_id)
+                print(IRCTC.RACList[i],'is given')
+                IRCTC.BookingList[IRCTC.customer_id] = IRCTC.RACList[i]
+                return True
+            else:
+                continue
+        return False
+
+    def Waiting(self):
+        for i in range(len(IRCTC.WList)):
+            if IRCTC.WList[i] == '0':
+                IRCTC.WList[i] = str(i+1)+'W'
+                print('Customer ID: ',IRCTC.customer_id)
+                print(IRCTC.WList[i],'is given')
+                IRCTC.BookingList[IRCTC.customer_id] = IRCTC.WList[i]
+                return True
+            else:
+                continue
+        return False
+        
+    def BookTicket(self):
+        IRCTC.customer_id += 1
+        self.customer_name = input('Enter your name: ')
+        self.age = input('Age: ')
+        self.berth = input('Preferred Berth (L or M or U): ')
+        if self.berth == 'L':
+            L = self.LBook()
+            if L:
+                print('Prefered Berth Availabe')
+                return
+            elif True == self.MBook():
+                return
+            elif True == self.UBook():
+                return
+            elif True == self.RAC():
+                return
+            elif True == self.Waiting():
+                return
+            else:
+                print('NO TICKETS ARE AVAILABLE')
+                    
+        elif self.berth == 'M':
+            M = self.MBook()
+            if M:
+                print('Prefered Berth Availabe')
+                return
+            elif True == self.LBook():
+                return
+            elif  True == self.UBook():
+                return
+            elif True == self.RAC():
+                return
+            elif True == self.Waiting():
+                return
+            else:
+                print('NO TICKETS ARE AVAILABLE')                
+                
+        elif self.berth == 'U':
+            U = self.UBook()
+            if U:
+                print('Prefered Berth Availabe')
+                return
+            elif True == self.MBook():
+                return
+            elif True == self.LBook():
+                return
+            elif True == self.RAC():
+                return
+            elif True == self.Waiting():
+                return
+            else:
+                print('NO TICKETS ARE AVAILABLE')
+        
+        
+    def CancelTicket(self):
+        self.ID = int(input("Enter the customer_id for Cancellation: "))
+        for key in IRCTC.BookingList.keys():
+            if key == self.ID:
+                if IRCTC.BookingList[key][1] == 'L':
+                    for i in range(len(IRCTC.LBerths)):
+                        if IRCTC.LBerths[i] == IRCTC.BookingList[key]:
+                            print('Cancellation Successfull')
+                            if IRCTC.RACList[0] != '0':
+                                for i in IRCTC.BookingList:
+                                  if IRCTC.BookingList[i][1] == 'R':
+                                      IRCTC.BookingList[i] = IRCTC.BookingList[key]
+                                      IRCTC.RACList[0] = '0'
+                            else:
+                                IRCTC.LBerths[i] = '0' 
+                            del IRCTC.BookingList[key]
+                            return
+
+                elif IRCTC.BookingList[key][1] == 'M':
+                    for i in range(len(IRCTC.MBerths)):
+                        if IRCTC.MBerths[i] == IRCTC.BookingList[key]:
+                            print('Cancellation Successfull')
+                            if IRCTC.RACList[0] != '0':
+                                for i in IRCTC.BookingList:
+                                  if IRCTC.BookingList[i][1] == 'R':
+                                      IRCTC.BookingList[i] = IRCTC.BookingList[key]
+                                      IRCTC.RACList[0] = '0'
+                            else:
+                                IRCTC.MBerths[i] = '0' 
+                            del IRCTC.BookingList[key]
+                            return
+                        
+                elif IRCTC.BookingList[key][1] == 'U':
+                    for i in range(len(IRCTC.UBerths)):
+                        if IRCTC.UBerths[i] == IRCTC.BookingList[key]:
+                            print('Cancellation Successfull')
+                            if IRCTC.RACList[0] != '0':
+                                for i in IRCTC.BookingList:
+                                  if IRCTC.BookingList[i][1] == 'R':
+                                      IRCTC.BookingList[i] = IRCTC.BookingList[key]
+                                      IRCTC.RACList[0] = '0'
+                            else:
+                                IRCTC.UBerths[i] = '0' 
+                            del IRCTC.BookingList[key]
+                            return
+                        
+                elif IRCTC.BookingList[key][1] == 'R':
+                    for i in range(len(IRCTC.RACList)):
+                        if IRCTC.RACList[i] == IRCTC.BookingList[key]:
+                            print('Cancellation Successfull')
+                            if IRCTC.WList[0] != '0':
+                                for i in IRCTC.BookingList:
+                                    if IRCTC.BookingList[i][1] == 'W':
+                                        IRCTC.BookingList[i] = IRCTC.BookingList[key]
+                                        IRCTC.WList[0] = '0'
+                            else:
+                                IRCTC.RACList[i] = '0'
+                            del IRCTC.BookingList[key]
+                            return            
+                      
+                elif IRCTC.BookingList[key][1] == 'W':
+                    for i in range(len(IRCTC.WList)):
+                        if IRCTC.WList[i] == IRCTC.BookingList[key]:
+                            IRCTC.WList[i] = '0'
+                            print('Cancellation Successfull')
+                            del IRCTC.BookingList[key]
+                            return
+        
+    def AvailableTickets(self):
+        print('No of tickets Available in lower berth: ',IRCTC.LBerths.count('0'))
+        print('No of tickets Available in middle berth: ',IRCTC.MBerths.count('0'))
+        print('No of tickets Available in upper berth: ',IRCTC.UBerths.count('0'))
+        print('No of tickets Available in  RAC: ',IRCTC.RACList.count('0'))
+        print('No of tickets Available in waiting list: ',IRCTC.WList.count('0'))
+        return
+        
+    def BookedTickets(self):
+        print('No of Booked Tickets: ',len(IRCTC.BookingList))
+
+
+t =  True
+while t:
+    print('''1.Book Ticket
+2.Cancel Ticket
+3.Available Tickets
+4.Booked Tickets
+5.Exit''')
+    obj = IRCTC()
+    command = int(input())
+    if command == 1:
+        obj.BookTicket()
+    elif command == 2:
+        obj.CancelTicket()
+    elif command == 3:
+        obj.AvailableTickets()
+    elif command == 4:
+        obj.BookedTickets()
+    elif command == 5:
+        print('exit')
+        t = False
+
+
