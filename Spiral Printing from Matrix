@@ -1,0 +1,25 @@
+row = int(input())
+column = int(input())
+matrix = [[((column*j)+(i+1)) for i in range(column)] for j in range(row)]
+for r in matrix:
+    for c in r:
+        print(c, end="  ")
+    print()
+print()
+for x in range(row):
+    a = x%2
+    b = x//2 
+    if a == 0:
+        for i in range(row-b):
+            if i == 0:
+                for j in range(b, column-b):
+                   print(matrix[x-b-i][j], end= ' ')
+            elif (i > b) and (i != row-1-b) :
+               print(matrix[i][column-1-b], end= ' ')
+            elif i > 1 and i == row-1-b:
+                for j in range(column-x):
+                    print(matrix[i][abs(column-1-b-j)], end= ' ')
+
+    elif a == 1 :
+        for i in range(a, row -(x)):
+            print(matrix[row -(x-b)-i][x-b-1], end= ' ')
