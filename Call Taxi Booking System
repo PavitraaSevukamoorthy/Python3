@@ -1,0 +1,71 @@
+class Booking:
+    Customer_id = 0
+    taxi = {'Taxi-1':['A'],'Taxi-2':['A'],'Taxi-3':['A'],'Taxi-4':['A']}
+        
+    def __init__(self,PickupPoint,DropPoint,PickupTime):
+        Booking.Customer_id += 1
+        self.points = ['A', 'B', 'C', 'D', 'E', 'F']
+        self.pp = PickupPoint
+        self.dp = DropPoint
+        self.pt = PickupTime
+        self.allocated = self.Allocation()
+        
+    def Points(self):
+        if self.pp not in self.points:
+            print('Pickup point not found')
+            return
+        elif self.dp not in self.points:
+            print('Drop point not found')
+            return
+        else:
+            pass
+        
+    def TravelDistance (self):
+        distance = (abs(ord(self.pp) - ord(self.dp))) * 15
+        return distance
+
+    def Duration (self):
+        duration = (abs(ord(self.pp) - ord(self.dp))) * 60
+        time = self.pt + duration
+        return time
+
+    def Amount (self):
+        a = self.TravelDistance()
+        a = a - 5
+        amount = (a*10) + 100
+        return amount
+    
+    def Allocation(self):
+        for key in Booking.taxi.keys():
+            if (abs(ord(self.pp) - ord(Booking.taxi[key][0])) <= 1) or (len(Booking.taxi[key])== 1):
+                Booking.taxi[key].append((self.pp,self.dp))
+                self.taxi_no = key
+                print('Taxi can be alloted')
+                print(key,'is alloted') 
+                return key
+            else:
+                    continue
+        else:
+            print("order canceled")
+            return
+
+           
+class customer_entries:
+    print("Call Taxi Booking")
+    Customer_id = 0
+    def __init__(self):
+        self.PickupPoint = input('PickupPoint...')
+        self.DropPoint = input('DropPoint...')
+        self.ptime = input('PickupTime...')
+        self.PickupTime = ((int(self.ptime[0])*10 + int(self.ptime[1]))*60)+(int(self.ptime[3]))*10+int(self.ptime[4])
+        self.obj = Booking(self.PickupPoint, self.DropPoint, self.PickupTime)
+        self.DropTime = str(self.obj.Duration()//60)+ ':' + str(self.obj.Duration()%60)
+        customer_entries.Customer_id += 1
+
+    def printstatements(self):
+        print('Taxi_no :', self.obj.allocated, 'Customer_id :', self.obj.Customer_id, 'PickupTime : ',self.ptime, 'DropTime :',self.DropTime, 'Amount :',self.obj.Amount(),'Rupees')
+
+
+book1 = customer_entries()
+book1.printstatements()
+
